@@ -1,0 +1,2 @@
+- when a method is declared abstract, then the enclosing class also must be declared abstract.
+- An abstract class can't be instantiated.

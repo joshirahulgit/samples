@@ -8,3 +8,5 @@ Object Relation Sample:
 
     Inheritance
 
+
+Delegation?
