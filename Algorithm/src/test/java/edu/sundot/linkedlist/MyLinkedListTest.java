@@ -1,5 +1,7 @@
 package edu.sundot.linkedlist;
 
+import org.junit.Test;
+
 import java.util.Arrays;
 
 /**
@@ -7,7 +9,7 @@ import java.util.Arrays;
  */
 public class MyLinkedListTest {
 
-    @org.junit.Test
+    @Test
     public void add() {
         MyLinkedList<String> items = new MyLinkedList<>();
         for (int i = 0; i < 6; i++) {
@@ -16,7 +18,7 @@ public class MyLinkedListTest {
         assert (items.size() == 6);
     }
 
-    @org.junit.Test
+    @Test
     public void remove() {
         MyLinkedList<String> items = getList();
         boolean res = true;
@@ -30,7 +32,7 @@ public class MyLinkedListTest {
 
     int index = 0;
 
-    @org.junit.Test
+    @Test
     public void forEach() {
         MyLinkedList<String> items = getList();
         Object[] checkItems = {"a0", "a1", "a2", "a3", "a4", "a5"};
@@ -45,16 +47,56 @@ public class MyLinkedListTest {
         ++index;
     }
 
-    @org.junit.Test
+    @Test
     public void items() {
         Object[] checkItems = {"a0", "a1", "a2", "a3", "a4", "a5"};
         Object[] resItems = getList().items();
         assert (Arrays.equals(checkItems, resItems));
     }
 
-    @org.junit.Test
+    @Test
     public void size() {
-        assert (getList().size() == 6);
+        MyLinkedList<String> items = getList();
+        items.remove("a3");
+        assert (items.size() == 5);
+    }
+
+    @Test
+    public void removeDuplicates() {
+        Integer[] expected = {5, 4, 6, 57, 2};
+
+        MyLinkedList<Integer> items = new MyLinkedList<>();
+        items.add(5);
+        items.add(4);
+        items.add(6);
+        items.add(5);
+        items.add(57);
+        items.add(5);
+        items.add(4);
+        items.add(2);
+
+        items.removeDuplicates();
+
+        assert (Arrays.equals(items.items(), expected));
+    }
+
+    @Test
+    public void removeDuplicatesWithoutBuffer() {
+        Integer[] expected = {5, 4, 6, 55, 2};
+
+        MyLinkedList<Integer> items = new MyLinkedList<>();
+        items.add(5);
+        items.add(4);
+        items.add(6);
+        items.add(5);
+        items.add(55);
+        items.add(5);
+        items.add(4);
+        items.add(2);
+
+        items.removeDuplicates();
+
+        assert (Arrays.equals(items.items(), expected));
     }
 
     private MyLinkedList<String> getList() {
