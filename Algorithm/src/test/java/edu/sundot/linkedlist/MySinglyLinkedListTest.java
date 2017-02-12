@@ -69,4 +69,18 @@ public class MySinglyLinkedListTest {
         assert (items.size() == 3);
     }
 
+    @Test
+    public void removeAndReturnCopy() throws Exception {
+        String[] expected = {"A", "B", "D", "E"};
+
+        MySinglyLinkedList<String> items = new MySinglyLinkedList<>();
+        items.add("A");
+        items.add("B");
+        items.add("C");
+        items.add("D");
+        items.add("E");
+        MySinglyLinkedList<String> resultList = items.removeAndReturnCopy("C");
+        items.remove("C");
+        assert (Arrays.equals(expected, resultList.items()));
+    }
 }

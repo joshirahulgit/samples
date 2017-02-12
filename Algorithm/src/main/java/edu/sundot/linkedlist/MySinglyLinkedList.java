@@ -110,6 +110,23 @@ public class MySinglyLinkedList<T> {
         return isSuccess;
     }
 
+    public MySinglyLinkedList<T> removeAndReturnCopy(T item) throws Exception {
+        MySinglyLinkedList<T> newItems = new MySinglyLinkedList<T>();
+        if (size > 0) {
+            Node current = this.head.next;
+            while (current != this.tail) {
+                if (!current.data.equals(item))
+                    newItems.add(current.data);
+
+                current = current.next;
+            }
+        } else {
+            //TODO: Replace it to custom exception
+            throw new Exception();
+        }
+        return newItems;
+    }
+
     public void forEach(Consumer<T> consumer) {
         if (consumer != null) {
             Node searchPtr = this.head.next;
