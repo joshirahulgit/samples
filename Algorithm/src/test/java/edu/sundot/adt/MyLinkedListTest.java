@@ -1,5 +1,6 @@
-package edu.sundot.linkedlist;
+package edu.sundot.adt;
 
+import edu.sundot.adt.MyLinkedList;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -97,6 +98,24 @@ public class MyLinkedListTest {
         items.removeDuplicates();
 
         assert (Arrays.equals(items.items(), expected));
+    }
+
+    @Test
+    public void partitionAroundValue() {
+        Integer[] expected = {4, 2, 5, 7, 9, 7, 5, 6};
+
+        MyLinkedList<Integer> items = new MyLinkedList<>();
+        items.add(5);
+        items.add(4);
+        items.add(6);
+        items.add(5);
+        items.add(7);
+        items.add(2);
+        items.add(9);
+        items.add(7);
+
+        Object[] result = items.partitionAroundValue(5, Integer::compareTo).items();
+        assert (Arrays.equals(result, expected));
     }
 
     private MyLinkedList<String> getList() {
