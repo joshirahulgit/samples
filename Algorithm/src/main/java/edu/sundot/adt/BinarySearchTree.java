@@ -14,6 +14,10 @@ public class BinarySearchTree<T extends Comparable> {
 
     }
 
+    public int height() {
+        return root.height;
+    }
+
     public void add(T data) {
         BinarySearchTreeNode<T> newNode = getNewInternalNode(data);
         if (root == null) {
@@ -66,6 +70,8 @@ public class BinarySearchTree<T extends Comparable> {
     private void rotateLeft(BinarySearchTreeNode<T> node) {
         if (node.hasParent()) {
             BinarySearchTreeNode<T> parent = node.parent;
+            if (node.right.right.isExternal())
+                shiftAllRight(node.right);
             parent.right = node.right;
             node.right.parent = parent;
             node.right.left = node;
@@ -81,6 +87,8 @@ public class BinarySearchTree<T extends Comparable> {
     private void rotateRight(BinarySearchTreeNode<T> node) {
         if (node.hasParent()) {
             BinarySearchTreeNode<T> parent = node.parent;
+            if (node.left.left.isExternal())
+                shiftAllLeft(node.left);
             parent.left = node.left;
             node.left.parent = parent;
             node.left.right = node;
@@ -91,6 +99,20 @@ public class BinarySearchTree<T extends Comparable> {
             node.left.right = node;
             node.left = getNewExternalNode();
         }
+    }
+
+    private void shiftAllLeft(BinarySearchTreeNode node) {
+        BinarySearchTreeNode<T> parent = node.parent;
+        parent.left = node.right;
+        parent.left.left = node;
+        node.right = getNewExternalNode();
+    }
+
+    private void shiftAllRight(BinarySearchTreeNode node) {
+        BinarySearchTreeNode<T> parent = node.parent;
+        parent.right = node.left;
+        parent.right.right = node;
+        node.left = getNewExternalNode();
     }
 
     private BinarySearchTreeNode<T> getNewExternalNode() {
