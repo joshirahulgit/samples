@@ -3,6 +3,7 @@ package edu.sundot;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -11,11 +12,20 @@ import java.util.Set;
 public class PermutationTest {
     @Test
     public void getPermutationForDistinctValues() throws Exception {
-        String[] items = Permutation.getPermutationForDistinctValues("abc");
+        Set<String> items = Permutation.getPermutationForDistinctValues("abc");
         for (String item : items) {
             System.out.println(item);
         }
-        System.out.println("Total: " + items.length);
+        System.out.println("Total: " + items.size());
+    }
+
+    @Test
+    public void getPermutationForNonDistinctValues() throws Exception {
+        Set<String> items = Permutation.getPermutationForDistinctValues("aaab");
+        for (String item : items) {
+            System.out.println(item);
+        }
+        System.out.println("Total: " + items.size());
     }
 
     @Test

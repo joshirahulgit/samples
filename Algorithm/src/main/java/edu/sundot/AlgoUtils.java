@@ -22,6 +22,16 @@ public class AlgoUtils {
         return String.copyValueOf(items);
     }
 
+    public static int getFactorial(int value) {
+        if (value == 0)
+            return 0;
+
+        if (value == 1 || value == 2)
+            return value;
+
+        return getFactorial(value - 1) * value;
+    }
+
     public static String swapOnIndex(String input, int index1, int index2) {
         if (input == null)
             return null;

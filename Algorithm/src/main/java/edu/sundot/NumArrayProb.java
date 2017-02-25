@@ -33,4 +33,8 @@ public class NumArrayProb {
         return resultPairs;
     }
 
+//    public static List<List<Integer>> getAllSubsetForSumValue(int[] items, int sum) {
+//
+//    }
+
 }

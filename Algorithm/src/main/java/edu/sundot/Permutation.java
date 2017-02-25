@@ -1,38 +1,37 @@
 package edu.sundot;
 
 import java.security.InvalidParameterException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by rahul on 2/24/17.
  */
 public class Permutation {
 
-    public static String[] getPermutationForDistinctValues(String value) {
-        if (value.length() == 0) return new String[0];
+    public static Set<String> getPermutationForDistinctValues(String value) {
+        if (value.length() == 0) return new HashSet<>();
 
-        if (value.length() == 1) return new String[]{value};
+        if (value.length() == 1) {
+            Set<String> result = new HashSet<>();
+            result.add(value);
+            return result;
+        }
 
         if (value.length() == 2) {
-            String[] values = new String[2];
-            values[0] = value;
-            values[1] = AlgoUtils.reverse(value);
+            Set<String> values = new HashSet<>();
+            values.add(value);
+            values.add(AlgoUtils.reverse(value));
             return values;
         }
 
-        int factorial = getFactorial(value.length());
-        String[] values = new String[factorial];
-        int current = 0;
+        Set<String> values = new HashSet<>();
         int i = 0, j = 1, end = value.length();
         while (i != end) {
             String prefix = value.substring(i, j);
             String next = value.substring(0, i) + value.substring(j);
-            String[] res = getPermutationForDistinctValues(next);
+            Set<String> res = getPermutationForDistinctValues(next);
             for (String item : res) {
-                values[current] = (prefix + item);
-                current++;
+                values.add(prefix + item);
             }
             i++;
             j++;
@@ -40,18 +39,42 @@ public class Permutation {
         return values;
     }
 
-    private static int getFactorial(int value) {
-        if (value == 0)
-            return 0;
+    public static List<String> recurse(String input) {
+        Map<Character, Integer> charMap = new HashMap<>();
+        for (char c : input.toCharArray()) {
+            charMap.compute(c, (key, value) -> value == null ? 1 : value + 1);
+        }
 
-        if (value == 1 || value == 2)
-            return value;
-        return getFactorial(value - 1) * value;
+        int depth = 0;
+        char[] res = new char[input.length()];
+        List<String> resList = new ArrayList<>();
+        recurseHelper(resList, charMap, res, depth);
+        return resList;
+    }
+
+    private static void recurseHelper(List<String> resList, Map<Character, Integer> charMap, char[] res, int depth) {
+        if (depth == res.length) {
+            resList.add(String.copyValueOf(res));
+        }
+
+        for (Map.Entry<Character, Integer> entry : charMap.entrySet()) {
+            if (entry.getValue() == 0)
+                continue;
+
+            res[depth] = entry.getKey();
+            charMap.compute(entry.getKey(), (key, value) -> value - 1);
+            recurseHelper(resList, charMap, res, depth + 1);
+            charMap.compute(entry.getKey(), (key, value) -> value + 1);
+        }
     }
 
     public static void main(String[] args) {
-        ArrayList<String> result = generateParens(3);
-        result.forEach(System.out::println);
+        List<String> items = recurse("aaabbbc");
+        items.forEach(System.out::println);
+        System.out.println(items.size());
+
+//        ArrayList<String> result = generateParens(3);
+//        result.forEach(System.out::println);
     }
 
     public static ArrayList<String> generateParens(int count) {
