@@ -7,6 +7,7 @@ import java.security.InvalidParameterException;
  */
 public class AlgoUtils {
 
+    //Reverse any string.
     public static String reverse(String value) {
         if (value == null) return null;
 
