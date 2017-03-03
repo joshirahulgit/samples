@@ -1,5 +1,7 @@
 package edu.sundot;
 
+import org.omg.CORBA.StringSeqHelper;
+
 import java.security.InvalidParameterException;
 import java.util.*;
 
@@ -69,9 +71,12 @@ public class Permutation {
     }
 
     public static void main(String[] args) {
-        List<String> items = recurse("aaabbbc");
-        items.forEach(System.out::println);
-        System.out.println(items.size());
+//        List<String> items = recurse("aaabbbc");
+//        items.forEach(System.out::println);
+//        System.out.println(items.size());
+
+        System.out.println("abc");
+
 
 //        ArrayList<String> result = generateParens(3);
 //        result.forEach(System.out::println);
